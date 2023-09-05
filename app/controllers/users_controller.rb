@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @followings = @user.followings
+    @followers = @user.followers
     @books = @user.books
     @book = Book.new
   end
@@ -21,6 +23,18 @@ class UsersController < ApplicationController
     else
       render "edit"
     end
+  end
+
+
+  # フォロー一覧
+  def follows
+    user = User.find(params[:id])
+    @users = user.followings
+  end
+  # フォロワー一覧
+  def followers
+    user = User.find(params[:user_id])
+    @users = user.followers
   end
 
   private
